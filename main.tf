@@ -108,14 +108,17 @@ resource "azurerm_api_management" "api_mgmt" {
   resource_group_name = azurerm_resource_group.rg.name
   publisher_name      = "My Company"
   publisher_email     = "company@example.com"
-
+  virtual_network_type = "Internal"
   sku_name = "Developer_1"
 
-  #public_ip_address_id = azurerm_public_ip.apim_ip.id
+  identity {
+    type = "SystemAssigned"
+  }
 
-  virtual_network_type = "Internal"
+  #public_ip_address_id = azurerm_public_ip.apim_ip.id
+  
   virtual_network_configuration {
     subnet_id = azurerm_subnet.subnet.id
   }
-  depends_on = [azurerm_public_ip.apim_ip]
+  # depends_on = [azurerm_public_ip.apim_ip]
 }
