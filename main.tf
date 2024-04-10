@@ -22,101 +22,101 @@ resource "azurerm_subnet" "subnet" {
   address_prefixes     = ["10.0.1.0/24"]
 }
 
-resource "azurerm_network_security_group" "nsg" {
-  name                = "apim-nsg"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+# resource "azurerm_network_security_group" "nsg" {
+#   name                = "apim-nsg"
+#   location            = azurerm_resource_group.rg.location
+#   resource_group_name = azurerm_resource_group.rg.name
 
-  security_rule {
-    name                       = "Inbound_3443"
-    priority                   = 1001
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "3443"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
+#   security_rule {
+#     name                       = "Inbound_3443"
+#     priority                   = 1001
+#     direction                  = "Inbound"
+#     access                     = "Allow"
+#     protocol                   = "Tcp"
+#     source_port_range          = "*"
+#     destination_port_range     = "3443"
+#     source_address_prefix      = "*"
+#     destination_address_prefix = "*"
+#   }
 
-  security_rule {
-    name                       = "Inbound_6390"
-    priority                   = 1002
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "6390"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
+#   security_rule {
+#     name                       = "Inbound_6390"
+#     priority                   = 1002
+#     direction                  = "Inbound"
+#     access                     = "Allow"
+#     protocol                   = "Tcp"
+#     source_port_range          = "*"
+#     destination_port_range     = "6390"
+#     source_address_prefix      = "*"
+#     destination_address_prefix = "*"
+#   }
 
-  security_rule {
-    name                       = "Outbound_443"
-    priority                   = 2001
-    direction                  = "Outbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "443"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
+#   security_rule {
+#     name                       = "Outbound_443"
+#     priority                   = 2001
+#     direction                  = "Outbound"
+#     access                     = "Allow"
+#     protocol                   = "Tcp"
+#     source_port_range          = "*"
+#     destination_port_range     = "443"
+#     source_address_prefix      = "*"
+#     destination_address_prefix = "*"
+#   }
 
-  security_rule {
-    name                       = "Outbound_1443"
-    priority                   = 2002
-    direction                  = "Outbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "1443"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
+#   security_rule {
+#     name                       = "Outbound_1443"
+#     priority                   = 2002
+#     direction                  = "Outbound"
+#     access                     = "Allow"
+#     protocol                   = "Tcp"
+#     source_port_range          = "*"
+#     destination_port_range     = "1443"
+#     source_address_prefix      = "*"
+#     destination_address_prefix = "*"
+#   }
 
-  security_rule {
-    name                       = "Outbound_1886"
-    priority                   = 2003
-    direction                  = "Outbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "1886"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-}
+#   security_rule {
+#     name                       = "Outbound_1886"
+#     priority                   = 2003
+#     direction                  = "Outbound"
+#     access                     = "Allow"
+#     protocol                   = "Tcp"
+#     source_port_range          = "*"
+#     destination_port_range     = "1886"
+#     source_address_prefix      = "*"
+#     destination_address_prefix = "*"
+#   }
+# }
 
-resource "azurerm_subnet_network_security_group_association" "nsg_association" {
-  subnet_id                 = azurerm_subnet.subnet.id
-  network_security_group_id = azurerm_network_security_group.nsg.id
-}
+# resource "azurerm_subnet_network_security_group_association" "nsg_association" {
+#   subnet_id                 = azurerm_subnet.subnet.id
+#   network_security_group_id = azurerm_network_security_group.nsg.id
+# }
 
-resource "azurerm_public_ip" "apim_ip" {
-  name                = "apim-ip"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  domain_name_label   = "apim-test-2024"
-  allocation_method   = "Static"
-  sku                 = "Standard"
-}
+# resource "azurerm_public_ip" "apim_ip" {
+#   name                = "apim-ip"
+#   location            = azurerm_resource_group.rg.location
+#   resource_group_name = azurerm_resource_group.rg.name
+#   domain_name_label   = "apim-test-2024"
+#   allocation_method   = "Static"
+#   sku                 = "Standard"
+# }
 
 resource "azurerm_api_management" "api_mgmt" {
-  name                = "apim-test-2024"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  publisher_name      = "My Company"
-  publisher_email     = "company@example.com"
+  name                 = "apim-test-2024"
+  location             = azurerm_resource_group.rg.location
+  resource_group_name  = azurerm_resource_group.rg.name
+  publisher_name       = "My Company"
+  publisher_email      = "company@example.com"
   virtual_network_type = "Internal"
-  sku_name = "Developer_1"
+  sku_name             = "Developer_1"
 
   identity {
     type = "SystemAssigned"
   }
 
   #public_ip_address_id = azurerm_public_ip.apim_ip.id
-  
+
   virtual_network_configuration {
     subnet_id = azurerm_subnet.subnet.id
   }
