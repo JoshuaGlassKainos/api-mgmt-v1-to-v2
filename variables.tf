@@ -1,5 +1,5 @@
 variable "location" {
-  default = "west eu"
+  default = "westeurope"
 }
 
 variable "instance_type" {
