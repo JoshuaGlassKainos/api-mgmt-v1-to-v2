@@ -5,7 +5,7 @@
 
 resource "azurerm_resource_group" "rg" {
   name     = "apim-resources"
-  location = "west europe"
+  location = var.location
 }
 
 resource "azurerm_virtual_network" "vnet" {
@@ -16,14 +16,14 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_subnet" "subnet" {
-  name                 = "apim-subnet"
+  name                 = "apim-subnet-${var.instance_type}"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = ["10.0.1.0/24"]
+  address_prefixes     = var.address_prefixes
 }
 
 resource "azurerm_network_security_group" "nsg" {
-  name                = "apim-nsg"
+  name                = "apim-nsg-${var.instance_type}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -38,18 +38,6 @@ resource "azurerm_network_security_group" "nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-
-  # security_rule {
-  #   name                       = "Inbound_6390"
-  #   priority                   = 1002
-  #   direction                  = "Inbound"
-  #   access                     = "Allow"
-  #   protocol                   = "Tcp"
-  #   source_port_range          = "*"
-  #   destination_port_range     = "6390"
-  #   source_address_prefix      = "*"
-  #   destination_address_prefix = "*"
-  # }
 
   security_rule {
     name                       = "Outbound_443"
@@ -86,6 +74,18 @@ resource "azurerm_network_security_group" "nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
+
+  # security_rule {
+  #   name                       = "Inbound_6390"
+  #   priority                   = 1002
+  #   direction                  = "Inbound"
+  #   access                     = "Allow"
+  #   protocol                   = "Tcp"
+  #   source_port_range          = "*"
+  #   destination_port_range     = "6390"
+  #   source_address_prefix      = "*"
+  #   destination_address_prefix = "*"
+  # }
 }
 
 resource "azurerm_subnet_network_security_group_association" "nsg_association" {
@@ -105,7 +105,7 @@ resource "azurerm_subnet_network_security_group_association" "nsg_association" {
 # }
 
 resource "azurerm_api_management" "api_mgmt" {
-  name                = "apim-test-2024"
+  name                = "apim-test-${var.location}-${var.instance_type}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   publisher_name      = "My-Company"
