@@ -5,7 +5,7 @@
 
 resource "azurerm_resource_group" "rg" {
   name     = "apim-resources-stv1"
-  location = "uk south"
+  location = "west europe"
 }
 
 resource "azurerm_virtual_network" "vnet" {
@@ -39,17 +39,17 @@ resource "azurerm_network_security_group" "nsg" {
     destination_address_prefix = "*"
   }
 
-  security_rule {
-    name                       = "Inbound_6390"
-    priority                   = 1002
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "6390"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
+  # security_rule {
+  #   name                       = "Inbound_6390"
+  #   priority                   = 1002
+  #   direction                  = "Inbound"
+  #   access                     = "Allow"
+  #   protocol                   = "Tcp"
+  #   source_port_range          = "*"
+  #   destination_port_range     = "6390"
+  #   source_address_prefix      = "*"
+  #   destination_address_prefix = "*"
+  # }
 
   security_rule {
     name                       = "Outbound_443"
@@ -64,13 +64,13 @@ resource "azurerm_network_security_group" "nsg" {
   }
 
   security_rule {
-    name                       = "Outbound_1443"
+    name                       = "Outbound_1433"
     priority                   = 2002
     direction                  = "Outbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "1443"
+    destination_port_range     = "1433"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
