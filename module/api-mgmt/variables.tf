@@ -20,7 +20,3 @@ variable "apim_location" {
   type    = string
   default = "westeurope"
 }
-
-variable "apim_instance_type" {
-  default = "stv1"
-}

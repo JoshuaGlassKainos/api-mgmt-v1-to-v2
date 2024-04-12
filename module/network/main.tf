@@ -12,7 +12,7 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name = var.apim_vnet_name
   address_prefixes     = [var.apim_subnet_prefixes[count.index]]
 
-  depends_on = [ azurerm_virtual_network.vnet ]
+  depends_on = [azurerm_virtual_network.vnet]
 }
 
 resource "azurerm_network_security_group" "nsg" {
@@ -37,8 +37,7 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "nsg_association" {
-  count                     = var.apim_subnet_count
-  subnet_id                 = azurerm_subnet.subnet[count.index].id
+  subnet_id                 = azurerm_subnet.subnet[var.apim_subnet_attachment].id
   network_security_group_id = azurerm_network_security_group.nsg.id
 
   depends_on = [azurerm_subnet.subnet]

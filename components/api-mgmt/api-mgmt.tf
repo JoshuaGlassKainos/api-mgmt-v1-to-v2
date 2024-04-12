@@ -10,7 +10,7 @@ module "api_mgmt" {
 
   apim_resource_group_name = var.resource_group_name
 
-  apim_name             = "${var.name}-${var.location}"
-  apim_location         = var.location
-  apim_subnet_id        = data.azurerm_subnet.subnet.id
+  apim_name      = var.apim_name
+  apim_location  = var.location
+  apim_subnet_id = data.azurerm_subnet.subnet.id
 }

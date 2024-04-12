@@ -27,12 +27,12 @@ variable "vnet_prefixes" {
 }
 
 variable "subnet_prefixes" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "subnet_count" {
-  type = number
+  type    = number
   default = 1
 }
 
@@ -49,4 +49,8 @@ variable "nsg_rules" {
     source_address_prefix      = string
     destination_address_prefix = string
   }))
+}
+
+variable "subnet_attachment" {
+  type = number
 }

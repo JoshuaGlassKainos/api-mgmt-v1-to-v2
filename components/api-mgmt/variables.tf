@@ -15,8 +15,13 @@ variable "subnet_attachment" {
 }
 
 
-variable "name" {
-  default = "apim-test"
+variable "apim_name" {
+  default = null
+
+  validation {
+    condition     = var.apim_name != null
+    error_message = "APIM name cannot be null"
+  }
 }
 
 variable "location" {

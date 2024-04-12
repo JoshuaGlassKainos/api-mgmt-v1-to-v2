@@ -2,20 +2,22 @@ variable "apim_resource_group_name" {
   default = null
 }
 
-variable "apim_vnet_name" {
+variable "apim_subnet_id" {
   default = null
 }
 
-variable "apim_subnet_name" {
+variable "apim_name" {
+  type    = string
   default = null
-}
 
-variable "apim_subnet_count" {
-  type    = number
-  default = 1
+  validation {
+    condition     = var.apim_name != null
+    error_message = "value cannot be null"
+  }
 }
 
 variable "apim_location" {
+  type    = string
   default = "westeurope"
 }
 
@@ -23,22 +25,6 @@ variable "apim_nsg_name" {
   default = null
   validation {
     condition     = var.apim_nsg_name != null
-    error_message = "value cannot be null"
-  }
-}
-
-variable "apim_vnet_prefixes" {
-  default = null
-  validation {
-    condition     = var.apim_vnet_prefixes != null
-    error_message = "value cannot be null"
-  }
-}
-
-variable "apim_subnet_prefixes" {
-  default = null
-  validation {
-    condition     = var.apim_subnet_prefixes != null
     error_message = "value cannot be null"
   }
 }
@@ -61,9 +47,4 @@ variable "apim_nsg_rules" {
     condition     = var.apim_nsg_rules != null
     error_message = "value cannot be null"
   }
-}
-
-variable "apim_subnet_attachment" {
-  type = number
-  default = 0
 }
