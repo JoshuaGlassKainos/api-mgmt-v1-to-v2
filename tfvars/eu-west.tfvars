@@ -8,8 +8,8 @@ vnet_name           = "apim-vnet"
 subnet_name         = "apim-subnet"
 subnet_count        = 2
 
-nsg_name = "nsg-v1"
-subnet_attachment     = 0
+nsg_name          = "nsg-v1"
+subnet_attachment = 0
 
 nsg_rules = [
   {

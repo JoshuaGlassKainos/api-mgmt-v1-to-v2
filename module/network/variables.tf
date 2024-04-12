@@ -64,6 +64,6 @@ variable "apim_nsg_rules" {
 }
 
 variable "apim_subnet_attachment" {
-  type = number
+  type    = number
   default = 0
 }

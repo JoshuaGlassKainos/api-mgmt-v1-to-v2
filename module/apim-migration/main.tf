@@ -21,7 +21,7 @@ resource "azurerm_api_management" "api_mgmt" {
   sku_name            = data.azurerm_api_management.apim.sku_name
 
   virtual_network_type = "Internal"
-  
+
   // this will migrate to st1 -> stv2, along side new subnet
   public_ip_address_id = azurerm_public_ip.apim.id
 
@@ -34,7 +34,7 @@ resource "azurerm_api_management" "api_mgmt" {
 /// to create a stv2 instance
 
 resource "azurerm_network_security_group" "nsg" {
-  name                = "${var.apim_nsg_name}"
+  name                = var.apim_nsg_name
   resource_group_name = var.apim_resource_group_name
   location            = var.apim_location
 
