@@ -24,8 +24,3 @@ variable "apim_location" {
 variable "apim_instance_type" {
   default = "stv1"
 }
-
-variable "apim_address_prefixes" {
-  type    = list(string)
-  default = ["10.0.1.0/24"]
-}

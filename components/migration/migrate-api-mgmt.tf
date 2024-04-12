@@ -11,6 +11,5 @@ module "api_mgmt" {
 
   apim_name             = "${var.name}-${var.location}"
   apim_location         = var.location
-  apim_address_prefixes = var.address_prefixes
   apim_subnet_id        = data.azurerm_subnet.subnet.id
 }
