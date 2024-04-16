@@ -2,11 +2,15 @@ variable "resource_group_name" {
   default = null
 }
 
-variable "vnet_name" {
+variable "location" {
+  default = "westeurope"
+}
+
+variable "new_vnet_name" {
   default = null
 }
 
-variable "subnet_name" {
+variable "new_subnet_name" {
   default = null
 }
 
@@ -14,12 +18,18 @@ variable "new_subnet_attachment" {
   type = number
 }
 
-variable "apim_name" {
+variable "api_mgmt_name" {
   default = "apim-test"
 }
 
-variable "location" {
-  default = "westeurope"
+variable "new_vnet_prefixes" {
+  type    = list(string)
+  default = null
+}
+
+variable "new_subnet_prefixes" {
+  type    = list(string)
+  default = null
 }
 
 variable "nsg_name" {

@@ -3,6 +3,18 @@ data "azurerm_api_management" "apim" {
   resource_group_name = var.apim_resource_group_name
 }
 
+data "azurerm_virtual_network" "vnet" {
+  name                = var.apim_vnet_name
+  resource_group_name = var.apim_resource_group_name
+}
+
+resource "azurerm_subnet" "subnet" {
+  name                 = var.apim_new_subnet_name
+  resource_group_name  = var.apim_resource_group_name
+  virtual_network_name = var.apim_vnet_name
+  address_prefixes     = var.apim_new_subnet_prefixes
+}
+
 resource "azurerm_public_ip" "apim" {
   name                = "apim-ip"
   location            = var.apim_location
@@ -12,6 +24,7 @@ resource "azurerm_public_ip" "apim" {
   sku                 = "Standard"
 }
 
+// same configuration
 resource "azurerm_api_management" "api_mgmt" {
   name                = data.azurerm_api_management.apim.name
   location            = data.azurerm_api_management.apim.location
@@ -26,14 +39,11 @@ resource "azurerm_api_management" "api_mgmt" {
   public_ip_address_id = azurerm_public_ip.apim.id
 
   virtual_network_configuration {
-    subnet_id = var.apim_subnet_id
+    subnet_id = azurerm_subnet.subnet.id
   }
 
-  depends_on = [ azurerm_public_ip.apim ]
+  depends_on = [azurerm_public_ip.apim]
 }
-
-
-/// to create a stv2 instance
 
 resource "azurerm_network_security_group" "nsg" {
   name                = var.apim_nsg_name
@@ -57,6 +67,6 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "nsg_association" {
-  subnet_id                 = var.apim_subnet_id
+  subnet_id                 = azurerm_subnet.subnet.id
   network_security_group_id = azurerm_network_security_group.nsg.id
 }

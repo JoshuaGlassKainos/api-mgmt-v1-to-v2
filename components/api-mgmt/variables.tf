@@ -15,11 +15,11 @@ variable "subnet_attachment" {
 }
 
 
-variable "apim_name" {
+variable "api_mgmt_name" {
   default = null
 
   validation {
-    condition     = var.apim_name != null
+    condition     = var.api_mgmt_name != null
     error_message = "APIM name cannot be null"
   }
 }

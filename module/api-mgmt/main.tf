@@ -11,4 +11,10 @@ resource "azurerm_api_management" "api_mgmt" {
   virtual_network_configuration {
     subnet_id = var.apim_subnet_id
   }
+
+  zones = "TODO"
+
+  identity {
+    type = "SystemAssigned"
+  }
 }

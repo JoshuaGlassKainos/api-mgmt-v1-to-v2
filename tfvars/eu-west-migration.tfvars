@@ -2,7 +2,7 @@ location            = "westeurope"
 resource_group_name = "apim-resources"
 apim_name           = "apim-test-westeurope"
 vnet_name           = "apim-vnet"
-subnet_name         = "apim-subnet"
+subnet_name         = "apim-subnet-v2"
 
 nsg_name              = "nsg-v2"
 new_subnet_attachment = 1
