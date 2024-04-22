@@ -1,6 +1,6 @@
 location        = "uksouth"
-vnet_prefixes   = ["10.0.0.0/16"]
-subnet_prefixes = ["10.0.1.0/24"]
+vnet_prefixes   = ["10.0.0.0/20"]
+subnet_prefixes = ["10.0.1.0/25"]
 
 resource_group_name = "apim-resources"
 api_mgmt_name       = "apim-test"
@@ -13,26 +13,15 @@ subnet_attachment = 0
 
 nsg_rules = [
   {
-    name                       = "Inbound_all"
+    name                       = "Inbound_3443"
     priority                   = 1001
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "*"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  },
-  {
-    name                       = "Inbound_3443"
-    priority                   = 1002
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
     destination_port_range     = "3443"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
+    source_address_prefix      = "ApiManagement"
+    destination_address_prefix = "VirtualNetwork"
   },
   {
     name                       = "Outbound_443"

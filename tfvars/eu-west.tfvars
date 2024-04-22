@@ -1,12 +1,12 @@
 location        = "westeurope"
 vnet_prefixes   = ["10.0.0.0/16"]
-subnet_prefixes = ["10.0.1.0/24", "10.0.2.0/24"]
+subnet_prefixes = ["10.0.1.0/24"]
 
-resource_group_name = "apim-resources"
+resource_group_name = "apim-resources-westeurope"
 apim_name           = "apim-test-westeurope"
 vnet_name           = "apim-vnet"
 subnet_name         = "apim-subnet"
-subnet_count        = 2
+subnet_count        = 1
 
 nsg_name          = "nsg-v1"
 subnet_attachment = 0
@@ -20,8 +20,8 @@ nsg_rules = [
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "3443"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
+    source_address_prefix      = "ApiManagement"
+    destination_address_prefix = "VirtualNetwork"
   },
   {
     name                       = "Outbound_443"

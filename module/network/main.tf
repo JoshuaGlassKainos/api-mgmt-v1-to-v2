@@ -10,7 +10,7 @@ resource "azurerm_subnet" "subnet" {
   name                 = "${var.apim_subnet_name}.${count.index}"
   resource_group_name  = var.apim_resource_group_name
   virtual_network_name = var.apim_vnet_name
-  address_prefixes     = [var.apim_subnet_prefixes[count.index]]
+  address_prefixes     = [var.apim_subnet_prefixes[count.index]] 
 
   depends_on = [azurerm_virtual_network.vnet]
 }
